@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se importan los modelos de Low-Poly spaceship set de la tienda de Unity (19/08/2024)
 - Se importa un modelo propio hecho en TinkerCad (19/08/2024)
 - Se agrega el modelo jetfighter a la escena (19/08/2024)
+- Se agrega rigidbody y meshcollider al modelo jetfighter, creación de prefab JetFighter (19/08/2024)
 
 ### Changed
 
@@ -19,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Se eliminó North Area y South Area de la escena
+- Se eliminó North Area y South Area de la escena (19/08/2024)
 
 ### Fixed
 
