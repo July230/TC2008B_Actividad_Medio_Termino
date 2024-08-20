@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// La clase player controller class actualiza los eventos del objeto jetfighter.
+/// La clase Laser class actualiza los eventos del objeto Laser.
 /// Documentación estándar de código aquí
 /// https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/documentation-comments
 /// </summary>
 
-public class Proyectile : MonoBehaviour
+public class Laser : MonoBehaviour
 {
     // Velocidad movimiento y tiempo de vida del proyectil
-    public float speed = 10.0f;
+    public float speed = 500.0f;
     public float lifetime = 5.0f;
+
+    // Direccion del proyectil
+    private Vector3 direction;
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
@@ -39,5 +42,13 @@ public class Proyectile : MonoBehaviour
     {
         // Si choca con un enemigo, destruir proyectil y enemigo
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Configura la direccion del proyectil
+    /// </summary>
+    public void SetDirection(Vector3 dir)
+    {
+        direction = dir;
     }
 }

@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public float forwardInput;
 
     // Variables globales para los proyectiles disparados
-    public GameObject projectilePrefab;
+    public GameObject laserPrefab;
     public Transform shootingPoint1; // Punto desde donde se dispara el proyectil
     public Transform shootingPoint2; // Punto desde donde se dispara el proyectil
 
@@ -43,11 +43,8 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         forwardInput = Input.GetAxis("Vertical");
 
-        // Ajuste de movimiento: // La nave debe moverse en torno al eje x y z
-        transform.Translate(Vector3.down * Time.deltaTime * speed * forwardInput);
-
-        // Rotar nave en torno al eje "z"
-        transform.Rotate(Vector3.forward, Time.deltaTime * turnSpeed * horizontalInput);
+        transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
+        transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
 
         if (Input.GetMouseButtonDown(0) && Time.time > nextShootTime) // Click izquierdo para disparar
         {
@@ -58,21 +55,25 @@ public class PlayerController : MonoBehaviour
 
     private void ShootLaser()
     {
-        if (projectilePrefab)
+        if (laserPrefab)
         {
-            // Correcion de direccion de los proyectiles
-            Vector3 shootDirection = Vector3.down;
-
             Debug.Log("Click izquierdo");
 
             // Disparar desde el primer punto de disparo
-            GameObject projectile1 = Instantiate(projectilePrefab, shootingPoint1.position, shootingPoint1.rotation);
-            Rigidbody rb1 = projectile1.GetComponent<Rigidbody>();
-            rb1.velocity = shootDirection * speed;
+            GameObject projectile1 = Instantiate(laserPrefab, shootingPoint1.position, shootingPoint1.rotation);
+            Laser laser1 = projectile1.GetComponent<Laser>();
+            if (laser1 == null)
+            {
+                laser1.SetDirection(shootingPoint1.forward);
+            }
 
-            GameObject projectile2 = Instantiate(projectilePrefab, shootingPoint2.position, shootingPoint2.rotation);
-            Rigidbody rb2 = projectile2.GetComponent<Rigidbody>();
-            rb2.velocity = shootDirection * speed;
+            // Disparar desde el segundo punto de disparo
+            GameObject projectile2 = Instantiate(laserPrefab, shootingPoint2.position, shootingPoint2.rotation);
+            Laser laser2 = projectile2.GetComponent<Laser>();
+            if (laser2 == null)
+            {
+                laser2.SetDirection(shootingPoint2.forward);
+            }
         }
     }
 }
