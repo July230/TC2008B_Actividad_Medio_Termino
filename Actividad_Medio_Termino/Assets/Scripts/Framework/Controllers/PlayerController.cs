@@ -11,8 +11,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Velocidad movimiento y giro de la nave
-    public float speed = 5.0f;
-    public float turnSpeed = 0.0f;
+    public float speed = 10.0f;
+    public float turnSpeed = 5.0f;
 
 
     // Inputs de jugador
@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        speed = 200;
+        turnSpeed = 50;
     }
 
     /// <summary>
