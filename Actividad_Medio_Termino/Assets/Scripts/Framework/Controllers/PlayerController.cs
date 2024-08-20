@@ -44,13 +44,43 @@ public class PlayerController : MonoBehaviour
         forwardInput = Input.GetAxis("Vertical");
 
         transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
-        transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
+        transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
+
+        // Apuntar la nave hacia el cursor
+        PointAtCursor();
 
         if (Input.GetMouseButtonDown(0) && Time.time > nextShootTime) // Click izquierdo para disparar
         {
             ShootLaser();
             nextShootTime = Time.deltaTime * shootInterval;
         }
+    }
+
+
+    private void PointAtCursor()
+    {        
+        // Obtener la posicion actual del cursor
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // Asegurarse de que la coordenada y es la misma que el objeto
+        mousePosition.y = transform.position.y; 
+
+        // Calcular la direccion desde el objeto al cursor
+        Vector3 direction = mousePosition - transform.position; 
+
+        // Asegurarse de que la direccion esta en el plano xz
+        //direction.z = 0;
+
+        // Calcular el angulo de rotacion en el plano xz
+        float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+
+        // Crear la rotacion deseada alrededor del eje y
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, angle, 0));
+
+        // Aplicar la rotacion suavemente
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
+
+
     }
 
     private void ShootLaser()

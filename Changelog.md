@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se agrega rigidbody y meshcollider al modelo jetfighter, creación de prefab JetFighter (19/08/2024)
 - Se crea el script y se agrega en jetfighter, movimiento de la nave (20/08/2024)
 - Se crea el objeto Projectile y el script para el proyectil (20/08/2024)
+- Se agrega funcion para que jetfighter vea donde esta el cursor, la nave dispara (20/08/2024)
 
 ### Changed
 
