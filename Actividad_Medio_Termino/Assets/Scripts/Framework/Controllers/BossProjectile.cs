@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// La clase Laser actualiza los eventos del objeto Laser.
+/// La clase bossprojectile actualiza los eventos del objeto Projectile
 /// Documentación estándar de código aquí
 /// https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/documentation-comments
 /// </summary>
 
-public class Laser : MonoBehaviour
+public class BossProjectile : MonoBehaviour
 {
+
     // Velocidad movimiento y tiempo de vida del proyectil
-    public float speed = 500.0f;
-    public float lifetime = 5.0f;
+    public float speed = 50.0f;
+    public float lifetime = 30.0f;
 
     // Direccion del proyectil
     private Vector3 direction;
 
+    public float patternSpeed = 5.0f; // Velocidad del patron
+    public float patternDuration = 10.0f; // Duracion del patron
+
+    private float patternTimer; // Temporizador para el patron
+    
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
     /// </summary>
@@ -24,6 +30,7 @@ public class Laser : MonoBehaviour
     {
         // Destruir el proyectil despues de un tiempo
         Destroy(gameObject, lifetime);
+        patternTimer = patternDuration; // Iniciar temporizador del patron
     }
 
     /// <summary>
@@ -33,6 +40,19 @@ public class Laser : MonoBehaviour
     {
         // Mover el proyectil hacia adelante
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
+
+        // Actulizar temporizador del patron
+        patternTimer -= patternDuration;
+
+        if (patternTimer > 0)
+        {
+            ApplyPattern();
+        }
+        else
+        {
+            // Si el patron ha terminado, destruir el proyectil
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>
@@ -58,6 +78,18 @@ public class Laser : MonoBehaviour
     /// </summary>
     public void SetDirection(Vector3 dir)
     {
-        direction = dir;
+        // Normalizar la direccion para mantener velocidad constante
+        direction = dir.normalized;
+    }
+
+    /// <summary>
+    /// ApplyPattern aplica un patron a los proyectiles
+    /// </summary>
+    private void ApplyPattern()
+    {
+        // Patron: Movimiento en espiral
+        float angle = patternSpeed * Time.time;
+        Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0); // Movimiento en espiral
+        transform.Translate(direction * Time.deltaTime * speed);
     }
 }

@@ -12,7 +12,7 @@ public class Boss : MonoBehaviour
 {
     public GameObject projectilePrefab;
     public Transform[] attackPoints; // Puntos desde donde el jefe dispara
-    public float attackInterval = 2.0f; // Tiempo entre cada disparo del jefe
+    public float attackInterval = 0.5f; // Tiempo entre cada disparo del jefe
     public float moveSpeed = 1.0f; // Velocidad de movimiento del jefe
 
     private int currentPattern = 0; // Patron del ataque actual
@@ -64,18 +64,33 @@ public class Boss : MonoBehaviour
     /// </summary>
     private IEnumerator PatternOne()
     {
-        // Patron de ataque 1: disparar desde diferentes puntos
-        Instantiate(projectilePrefab, transform.position, transform.rotation);
+        if (attackPoints.Length == 0)
+        {
+            Debug.LogWarning("No attack points assigned!");
+            yield break; // Salir si no hay puntos de ataque asignados
+        }
 
-        /* 
-        Si hay tiempo, disparar desde distintos puntos
+        // Patron de ataque 1: disparar desde diferentes puntos
         foreach (var point in attackPoints)
         {
-            Instantiate(projectilePrefab, point.position, point.rotation);
+            if(point != null)
+            {
+                Debug.Log($"Instantiating projectile at {point.position}");
+                GameObject projectile = Instantiate(projectilePrefab, point.position, point.rotation);
+                BossProjectile bossProjectile = projectile.GetComponent<BossProjectile>();
+                if(bossProjectile != null)
+                {
+                    bossProjectile.SetDirection(point.forward); // Configurar la direccion del proyectil
+                }
+                
+            }
+            else 
+            {
+                Debug.LogWarning("Attack point is null");
+            }
         }
-        */
 
-        yield return new WaitForSeconds(1.0f); // Tiempo entre disparos
+        yield return new WaitForSeconds(attackInterval); // Tiempo entre disparos
     }
 
 

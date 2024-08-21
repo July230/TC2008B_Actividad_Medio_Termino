@@ -28,7 +28,7 @@ public class TimeUI : MonoBehaviour
     void Update()
     {
         // Actualizar el contador de proyectiles basado en la cantidad en escena
-        projectileCount = FindObjectsOfType<Laser>().Length + FindObjectsOfType<Missile>().Length;
+        projectileCount = FindObjectsOfType<Laser>().Length + FindObjectsOfType<Missile>().Length + FindObjectsOfType<BossProjectile>().Length;
 
         // Actualiza la informacion mostrada
         UpdateInfoText();

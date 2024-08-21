@@ -48,6 +48,15 @@ public class Missile : MonoBehaviour
     /// </summary>
     private void OnCollision(Collision collision)
     {
+        // Ignorar colisiones con otros proyectiles, misiles y laseres
+        if (collision.gameObject.CompareTag("Projectile") || 
+            collision.gameObject.CompareTag("Laser") || 
+            collision.gameObject.CompareTag("Missile"))
+        {
+            return;
+        }
+
+        Debug.Log("Proyectil impactó en el objetivo: " + collision.gameObject.name);
         // Si choca con un enemigo, destruir proyectil y enemigo
         Destroy(gameObject);
     }
