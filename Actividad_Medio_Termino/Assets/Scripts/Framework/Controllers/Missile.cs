@@ -64,7 +64,7 @@ public class Missile : MonoBehaviour
         }
 
         // Si el proyectil impacta contra un jugador
-        if(other.gameObject.CompareTag("Enemy"))
+        if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Boss"))
         {
             Health enemyHealth = other.gameObject.GetComponent<Health>();
             if(enemyHealth != null)

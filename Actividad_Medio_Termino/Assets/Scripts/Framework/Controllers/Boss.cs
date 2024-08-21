@@ -26,7 +26,7 @@ public class Boss : MonoBehaviour
     private Vector3[] initialPositions; // Posiciones iniciales de los puntos de disparos
     public float attackPointRotation = 1000.0f; // Velocidad de rotacion para los puntos de disparos
 
-    private Health bossHealth;
+    public Health bossHealth;
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
@@ -36,11 +36,7 @@ public class Boss : MonoBehaviour
         bossHealth = GetComponent<Health>();
         if(bossHealth == null)
         {
-            Debug.Log("No se encontro el componente Health para el jugador");
-        }
-        else
-        {
-            bossHealth.TakeDamage(0);
+            Debug.Log("No se encontro el componente Health para el jefe");
         }
         attackTimer = attackInterval;
         patternChangeTimer = patternChangeInterval;

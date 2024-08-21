@@ -10,8 +10,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    int maxHealth = 100;
-    private int currentHealth;
+    public int maxHealth = 100;
+    public int currentHealth;
 
     /// <summary>
     /// Start configura la vida maxima de los objetos
@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
         {
             maxHealth = 50;
         }
-        if(gameObject.CompareTag("Boss"))
+        else if(gameObject.CompareTag("Boss"))
         {
             maxHealth = 1000;
         }
@@ -41,7 +41,7 @@ public class Health : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        Debug.Log($"{gameObject.tag} recibio {damageAmount} puntos de daño.");
+        //Debug.Log($"{gameObject.tag} recibio {damageAmount} puntos de daño.");
 
         if(currentHealth <= 0)
         {

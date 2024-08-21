@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     public TimeUI timeUI;
     private Camera mainCamera;
-    private Health playerHealth;
+    public Health playerHealth;
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
@@ -42,11 +42,7 @@ public class PlayerController : MonoBehaviour
         playerHealth = GetComponent<Health>();
         if (playerHealth == null)
         {
-            Debug.Log("No se encontro el componente Health para el jugador");
-        }
-        else 
-        {
-            playerHealth.TakeDamage(0);
+            Debug.Log("No se encontró el componente Health en el GameObject del jugador.");
         }
         speed = 200;
         turnSpeed = 50;
@@ -72,16 +68,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && Time.time > nextShootTime)
         {
             ShootLaser();
-            nextShootTime = Time.deltaTime * shootInterval;
+            nextShootTime = Time.time * shootInterval;
         }
 
         // Click derecho para disparar misil
         if (Input.GetMouseButtonDown(1) && Time.time > nextMissileTime)
         {
             ShootMissile();
-            nextShootTime = Time.deltaTime + missileCoolDown;
+            nextMissileTime = Time.time + missileCoolDown;
             timeUI.SetNextMissileTime(); // Actualizar cooldown de misil
         }
+
+        RestrictPlayerToCamera();
     }
 
     /// <summary>

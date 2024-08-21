@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se agregaron colisiones (21/08/2024)
 - Se agrego el script Health para tener puntos de vida (21/08/2024)
 - Se agrego vida a jugador y jefe (21/08/2024)
+- Se agrego script Health a los objetos (21/08/2024)
+- Se agrego informacion adicional en el UI (21/08/2024)
 
 ### Changed
 
