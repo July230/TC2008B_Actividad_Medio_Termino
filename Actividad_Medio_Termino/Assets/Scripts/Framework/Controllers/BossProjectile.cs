@@ -12,25 +12,17 @@ public class BossProjectile : MonoBehaviour
 {
 
     // Velocidad movimiento y tiempo de vida del proyectil
-    public float speed = 500.0f;
-    public float lifetime = 60.0f;
+    public float speed = 200.0f;
 
     // Direccion del proyectil
     private Vector3 direction;
-
-    public float patternSpeed = 500.0f; // Velocidad del patron
-    public float patternDuration = 60.0f; // Duracion del patron
-
-    private float patternTimer; // Temporizador para el patron
     
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
     /// </summary>
     void Start()
     {
-        // Destruir el proyectil despues de un tiempo
-        Destroy(gameObject, lifetime);
-        patternTimer = patternDuration; // Iniciar temporizador del patron
+       
     }
 
     /// <summary>
@@ -40,15 +32,17 @@ public class BossProjectile : MonoBehaviour
     {
         // Mover el proyectil hacia adelante
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
-
-        // Actulizar temporizador del patron
-        patternTimer -= Time.deltaTime;
-
-        if (patternTimer > 0)
-        {
-            ApplyPattern();
-        }
     }
+
+    /// <summary>
+    /// OnBecameInvisible es llamado cuando el proyectil sale de la camara
+    /// </summary>
+    void OnBecameInvisible()
+    {
+        Debug.Log("Proyectil se ha vuelto invisible");
+        Destroy(gameObject);
+    }
+
     /*
     /// <summary>
     /// OnCollisionEnter maneja la logica de las colisiones de laser
@@ -75,17 +69,5 @@ public class BossProjectile : MonoBehaviour
     {
         // Normalizar la direccion para mantener velocidad constante
         direction = dir.normalized;
-    }
-
-    /// <summary>
-    /// ApplyPattern aplica un patron a los proyectiles
-    /// </summary>
-    private void ApplyPattern()
-    {
-        // Patron: Movimiento en espiral
-        float angle = patternSpeed * Time.time;
-        Vector3 patternDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0); // Movimiento en espiral
-        
-        transform.Translate(patternDirection * Time.deltaTime * speed);
     }
 }

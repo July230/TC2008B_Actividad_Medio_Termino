@@ -1151,6 +1151,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7092278280661050901}
   m_SourcePrefab: {fileID: 100100000, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
+--- !u!4 &5231765591355259756 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1489233923885288341, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
+  m_PrefabInstance: {fileID: 5231765591355259755}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5231765591355259757 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5816515684012360190, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
+  m_PrefabInstance: {fileID: 5231765591355259755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7092278280661050900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,9 +1181,15 @@ MonoBehaviour:
   - {fileID: 1385575898}
   - {fileID: 1074970624}
   - {fileID: 309022824}
+  - {fileID: 5231765591355259757}
+  - {fileID: 5231765591355259756}
   attackInterval: 2
   timeBetweenShoots: 0.2
   moveSpeed: 1
+  patternChangeInterval: 15
+  patternPause: 2
+  patternChangeTimer: 0
+  attackPointRotation: 30
 --- !u!135 &7092278280661050901
 SphereCollider:
   m_ObjectHideFlags: 0

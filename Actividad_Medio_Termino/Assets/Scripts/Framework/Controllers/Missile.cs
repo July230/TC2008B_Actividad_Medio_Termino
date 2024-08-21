@@ -12,7 +12,6 @@ public class Missile : MonoBehaviour
 {
     // Velocidad y tiempo de vida del misil
     public float speed = 500.0f;
-    public float lifetime = 5.0f;
 
     // Direccion del misil
     private Vector3 direction;
@@ -22,8 +21,7 @@ public class Missile : MonoBehaviour
     /// </summary>
     void Start()
     {
-        // Destruir el misil despues de un tiempo
-        Destroy(gameObject, lifetime);   
+         
     }
 
     /// <summary>
@@ -33,6 +31,14 @@ public class Missile : MonoBehaviour
     {
         // Mover el misil hacia adelante
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
+    }
+
+    /// <summary>
+    /// OnBecameInvisible es llamado cuando el proyectil sale de la camara
+    /// </summary>
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 
     /// <summary>

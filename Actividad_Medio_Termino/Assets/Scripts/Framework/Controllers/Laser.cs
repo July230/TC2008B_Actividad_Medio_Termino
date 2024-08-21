@@ -12,7 +12,6 @@ public class Laser : MonoBehaviour
 {
     // Velocidad movimiento y tiempo de vida del proyectil
     public float speed = 500.0f;
-    public float lifetime = 5.0f;
 
     // Direccion del proyectil
     private Vector3 direction;
@@ -22,8 +21,7 @@ public class Laser : MonoBehaviour
     /// </summary>
     void Start()
     {
-        // Destruir el proyectil despues de un tiempo
-        Destroy(gameObject, lifetime);
+        
     }
 
     /// <summary>
@@ -33,6 +31,14 @@ public class Laser : MonoBehaviour
     {
         // Mover el proyectil hacia adelante
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
+    }
+
+    /// <summary>
+    /// OnBecameInvisible es llamado cuando el proyectil sale de la camara
+    /// </summary>
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 
     /*

@@ -16,8 +16,15 @@ public class Boss : MonoBehaviour
     public float timeBetweenShoots = 0.2f; // Tiempo entre disparos consecutivos
     public float moveSpeed = 1.0f; // Velocidad de movimiento del jefe
 
-    //private int currentPattern = 0; // Patron del ataque actual
+    private int currentPattern = 0; // Patron del ataque actual
     private float attackTimer;
+    public float patternChangeInterval = 15.0f;
+    public float patternPause = 2.0f;
+    public float patternChangeTimer;
+
+    // Parametros para mover los puntos de disparo
+    private Vector3[] initialPositions; // Posiciones iniciales de los puntos de disparos
+    public float attackPointRotation = 1000.0f; // Velocidad de rotacion para los puntos de disparos
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
@@ -25,6 +32,15 @@ public class Boss : MonoBehaviour
     void Start()
     {
         attackTimer = attackInterval;
+        patternChangeTimer = patternChangeInterval;
+
+        // Guardar posiciones iniciales de los puntos de disparo del jefe
+        initialPositions = new Vector3[attackPoints.Length];
+        for(int i = 0; i < attackPoints.Length; i++)
+        {
+            // Calcular la posicion inicial con respecto al jefe
+            initialPositions[i] = attackPoints[i].position - transform.position;
+        }
     }
 
     /// <summary>
@@ -33,6 +49,7 @@ public class Boss : MonoBehaviour
     void Update()
     {
         attackTimer -= Time.deltaTime;
+        patternChangeTimer -= Time.deltaTime;
 
         if(attackTimer <= 0)
         {
@@ -40,6 +57,15 @@ public class Boss : MonoBehaviour
             StartCoroutine(ExecuteAttackPattern());
             attackTimer = attackInterval;
         }
+
+        if(patternChangeTimer <= 0)
+        {
+            StartCoroutine(ChangeAttackPattern());
+            patternChangeTimer = patternChangeInterval;
+        }
+
+        // Mover puntos de disparo en patron circular
+        RotateAttackPoints();
 
         // Si hay tiempo, agregar logica para mover al jefe
         // MoveBoss();
@@ -52,56 +78,117 @@ public class Boss : MonoBehaviour
     /// </summary>
     private IEnumerator ExecuteAttackPattern()
     {
-        foreach (var point in attackPoints)
-        {
-            Instantiate(projectilePrefab, point.position, point.rotation);
-            yield return new WaitForSeconds(timeBetweenShoots);
-        }
-        /*
         switch(currentPattern)
         {
+            // Aqui van los patrones de ataque
             case 0:
                 yield return StartCoroutine(PatternOne());
                 break;
+            case 1:
+                yield return StartCoroutine(PatternTwo());
+                break;
+            case 2:
+                yield return StartCoroutine(PatternThree());
+                break;
         }
-        */
     }
-    /*
+
+    /// <summary>
+    /// ChangeAttackPattern tiene la logica para cambiar de patrones de disparo
+    /// </summary>
+    private IEnumerator ChangeAttackPattern()
+    {
+        Debug.Log("Cambio de patron");
+
+        // Pausa antes de cambiar de patron
+        yield return new WaitForSeconds(patternPause);
+
+        // Cambiar al siguiente patron
+        currentPattern++;
+        if(currentPattern >= 3)
+        {
+            currentPattern = 0;
+        }
+    }
+
     /// <summary>
     /// PatternOne tiene la logica para un patron de disparo
     /// </summary>
     private IEnumerator PatternOne()
     {
-        if (attackPoints.Length == 0)
-        {
-            Debug.LogWarning("No attack points assigned!");
-            yield break; // Salir si no hay puntos de ataque asignados
-        }
-
         // Patron de ataque 1: disparar desde diferentes puntos
         foreach (var point in attackPoints)
         {
-            if(point != null)
+            GameObject projectile = Instantiate(projectilePrefab, point.position, point.rotation);
+            BossProjectile bossProjectile = projectile.GetComponent<BossProjectile>();
+            if(bossProjectile != null)
             {
-                Debug.Log($"Instantiating projectile at {point.position}");
-                GameObject projectile = Instantiate(projectilePrefab, point.position, point.rotation);
-                BossProjectile bossProjectile = projectile.GetComponent<BossProjectile>();
-                if(bossProjectile != null)
-                {
-                    bossProjectile.SetDirection(point.forward); // Configurar la direccion del proyectil
-                }
-                
-            }
-            else 
-            {
-                Debug.LogWarning("Attack point is null");
+                bossProjectile.SetDirection(point.forward); // Configurar la direccion del proyectil
             }
         }
 
         yield return new WaitForSeconds(attackInterval); // Tiempo entre disparos
     }
-    */
 
+    /// <summary>
+    /// PatternTwo tiene la logica para un patron de disparo
+    /// </summary>
+    private IEnumerator PatternTwo()
+    {
+        // Patron de ataque 1: disparar desde diferentes puntos
+        foreach (var point in attackPoints)
+        {
+            GameObject projectile = Instantiate(projectilePrefab, point.position, point.rotation);
+            BossProjectile bossProjectile = projectile.GetComponent<BossProjectile>();
+            if(bossProjectile != null)
+            {
+                // Configurar la direccion del proyectil
+                Vector3 spiralDirection = new Vector3(Mathf.Cos(Time.time), Mathf.Sin(Time.time), 0).normalized;
+                bossProjectile.SetDirection(spiralDirection);
+            }
+        }
+
+        yield return new WaitForSeconds(attackInterval); // Tiempo entre disparos
+    }
+
+    /// <summary>
+    /// PatternThree tiene la logica para un patron de disparo en rafagas
+    /// </summary>
+    private IEnumerator PatternThree()
+    {
+        // Patron de ataque 1: disparar desde diferentes puntos
+        foreach (var point in attackPoints)
+        {
+            GameObject projectile = Instantiate(projectilePrefab, point.position, point.rotation);
+            BossProjectile bossProjectile = projectile.GetComponent<BossProjectile>();
+            if(bossProjectile != null)
+            {
+                bossProjectile.SetDirection(point.forward);
+            }
+            yield return new WaitForSeconds(timeBetweenShoots);
+        }
+
+        yield return new WaitForSeconds(attackInterval); // Tiempo entre disparos
+    }
+
+    /// <summary>
+    /// MoveAttackPoints tiene la logica para la rotacion de los puntos de disparo alrededor del jefe
+    /// </summary>
+    private void RotateAttackPoints()
+    {
+        
+        for (int i = 0; i < attackPoints.Length; i++)
+        {
+            float angle = attackPointRotation * Time.deltaTime;
+
+            // Calcular la nueva posicion
+            Vector3 offset = initialPositions[i];
+            float x = offset.x * Mathf.Cos(angle) - offset.z * Mathf.Sin(angle);
+            float z = offset.x * Mathf.Cos(angle) - offset.z * Mathf.Sin(angle);
+
+            attackPoints[i].position = new Vector3(x, offset.y, z) + transform.position;
+        }
+    }
 
     /// <summary>
     /// MoveBoss tiene la logica del movimiento del jefe

@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public float nextMissileTime = 0f;
 
     public TimeUI timeUI;
+    private Camera mainCamera;
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         speed = 200;
         turnSpeed = 50;
+        mainCamera = Camera.main;
     }
 
     /// <summary>
@@ -147,5 +149,21 @@ public class PlayerController : MonoBehaviour
                 timeUI.SetNextMissileTime();
             }
         }
+    }
+
+    private void RestrictPlayerToCamera()
+    {
+        Vector3 position = transform.position;
+
+        // Convertir posicion de jugador a coordenadas de la camara
+        Vector3 viewPointPosition = mainCamera.WorldToViewportPoint(position);
+
+        // Restringir las coordenadas de la camara entre 0 y 1 (dentro de los limites de la pantalla)
+        viewPointPosition.x = Mathf.Clamp(viewPointPosition.x, 0.05f, 0.95f);
+        viewPointPosition.y = Mathf.Clamp(viewPointPosition.y, 0.05f, 0.95f);
+
+        // Convertir de vuelta a coordenadas del mundo
+        position = mainCamera.ViewportToWorldPoint(viewPointPosition);
+        transform.position = position;
     }
 }
