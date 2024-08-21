@@ -20,11 +20,15 @@ public class PlayerController : MonoBehaviour
 
     // Variables globales para los proyectiles disparados
     public GameObject laserPrefab;
+    public GameObject missilePrefab;
     public Transform shootingPoint1; // Punto desde donde se dispara el proyectil
     public Transform shootingPoint2; // Punto desde donde se dispara el proyectil
+    public Transform missileShootingPoint; // Punto desde donde se dispara el misil
 
     public float shootInterval = 0.25f; // Intervalo entre disparos
+    public float missileCoolDown = 15f; // Quince segundos de recuperacion
     public float nextShootTime = 0f;
+    public float nextMissileTime = 0f;
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
@@ -49,14 +53,24 @@ public class PlayerController : MonoBehaviour
         // Apuntar la nave hacia el cursor
         PointAtCursor();
 
-        if (Input.GetMouseButtonDown(0) && Time.time > nextShootTime) // Click izquierdo para disparar
+        // Click izquierdo para disparar
+        if (Input.GetMouseButtonDown(0) && Time.time > nextShootTime)
         {
             ShootLaser();
             nextShootTime = Time.deltaTime * shootInterval;
         }
+
+        // Click derecho para disparar misil
+        if (Input.GetMouseButtonDown(1) && Time.time > nextMissileTime)
+        {
+            ShootMissile();
+            nextShootTime = Time.deltaTime * missileCoolDown;
+        }
     }
 
-
+    /// <summary>
+    /// PointAtCursor es llamado cada frame y se encarga de hacer que el objeto apunte hacia donde esta el cursor
+    /// </summary>
     private void PointAtCursor()
     {        
         // Obtener la posicion actual del cursor
@@ -83,6 +97,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// ShootLaser es llamado cada vez que se hace click izquierdo, contiene la logica de los disparos del jugador
+    /// </summary>
     private void ShootLaser()
     {
         if (laserPrefab)
@@ -103,6 +120,20 @@ public class PlayerController : MonoBehaviour
             if (laser2 == null)
             {
                 laser2.SetDirection(shootingPoint2.forward);
+            }
+        }
+    }
+
+    private void ShootMissile()
+    {
+        if (missilePrefab)
+        {
+            Debug.Log("Click derecho");
+            GameObject missile = Instantiate(missilePrefab, missileShootingPoint.position, missileShootingPoint.rotation);
+            Missile mis = missile.GetComponent<Missile>();
+            if (mis == null)
+            {
+                mis.SetDirection(missileShootingPoint.forward);
             }
         }
     }
