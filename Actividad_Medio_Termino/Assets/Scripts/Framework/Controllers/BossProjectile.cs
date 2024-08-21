@@ -12,14 +12,14 @@ public class BossProjectile : MonoBehaviour
 {
 
     // Velocidad movimiento y tiempo de vida del proyectil
-    public float speed = 50.0f;
-    public float lifetime = 30.0f;
+    public float speed = 500.0f;
+    public float lifetime = 60.0f;
 
     // Direccion del proyectil
     private Vector3 direction;
 
-    public float patternSpeed = 5.0f; // Velocidad del patron
-    public float patternDuration = 10.0f; // Duracion del patron
+    public float patternSpeed = 500.0f; // Velocidad del patron
+    public float patternDuration = 60.0f; // Duracion del patron
 
     private float patternTimer; // Temporizador para el patron
     
@@ -42,19 +42,14 @@ public class BossProjectile : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
 
         // Actulizar temporizador del patron
-        patternTimer -= patternDuration;
+        patternTimer -= Time.deltaTime;
 
         if (patternTimer > 0)
         {
             ApplyPattern();
         }
-        else
-        {
-            // Si el patron ha terminado, destruir el proyectil
-            Destroy(gameObject);
-        }
     }
-
+    /*
     /// <summary>
     /// OnCollisionEnter maneja la logica de las colisiones de laser
     /// </summary>
@@ -72,7 +67,7 @@ public class BossProjectile : MonoBehaviour
         // Si choca con un enemigo, destruir proyectil y enemigo
         Destroy(gameObject);
     }
-
+    */
     /// <summary>
     /// Configura la direccion del laser
     /// </summary>
@@ -89,7 +84,8 @@ public class BossProjectile : MonoBehaviour
     {
         // Patron: Movimiento en espiral
         float angle = patternSpeed * Time.time;
-        Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0); // Movimiento en espiral
-        transform.Translate(direction * Time.deltaTime * speed);
+        Vector3 patternDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0); // Movimiento en espiral
+        
+        transform.Translate(patternDirection * Time.deltaTime * speed);
     }
 }

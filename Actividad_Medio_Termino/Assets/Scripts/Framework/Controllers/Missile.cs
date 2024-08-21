@@ -43,6 +43,7 @@ public class Missile : MonoBehaviour
         direction = dir;
     }
 
+    /*
     /// <summary>
     /// OnCollision maneja la logica de las colisiones del misil
     /// </summary>
@@ -60,4 +61,5 @@ public class Missile : MonoBehaviour
         // Si choca con un enemigo, destruir proyectil y enemigo
         Destroy(gameObject);
     }
+    */
 }

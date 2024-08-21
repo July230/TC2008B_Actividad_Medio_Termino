@@ -12,10 +12,11 @@ public class Boss : MonoBehaviour
 {
     public GameObject projectilePrefab;
     public Transform[] attackPoints; // Puntos desde donde el jefe dispara
-    public float attackInterval = 0.5f; // Tiempo entre cada disparo del jefe
+    public float attackInterval = 2.0f; // Tiempo entre cada serie de disparos
+    public float timeBetweenShoots = 0.2f; // Tiempo entre disparos consecutivos
     public float moveSpeed = 1.0f; // Velocidad de movimiento del jefe
 
-    private int currentPattern = 0; // Patron del ataque actual
+    //private int currentPattern = 0; // Patron del ataque actual
     private float attackTimer;
 
     /// <summary>
@@ -51,14 +52,21 @@ public class Boss : MonoBehaviour
     /// </summary>
     private IEnumerator ExecuteAttackPattern()
     {
+        foreach (var point in attackPoints)
+        {
+            Instantiate(projectilePrefab, point.position, point.rotation);
+            yield return new WaitForSeconds(timeBetweenShoots);
+        }
+        /*
         switch(currentPattern)
         {
             case 0:
                 yield return StartCoroutine(PatternOne());
                 break;
         }
+        */
     }
-
+    /*
     /// <summary>
     /// PatternOne tiene la logica para un patron de disparo
     /// </summary>
@@ -92,6 +100,7 @@ public class Boss : MonoBehaviour
 
         yield return new WaitForSeconds(attackInterval); // Tiempo entre disparos
     }
+    */
 
 
     /// <summary>

@@ -35,6 +35,7 @@ public class Laser : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 
+    /*
     /// <summary>
     /// OnCollisionEnter maneja la logica de las colisiones de laser
     /// </summary>
@@ -52,6 +53,7 @@ public class Laser : MonoBehaviour
         // Si choca con un enemigo, destruir proyectil y enemigo
         Destroy(gameObject);
     }
+    */
 
     /// <summary>
     /// Configura la direccion del laser
