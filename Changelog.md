@@ -18,7 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se agrega funcion para que jetfighter vea donde esta el cursor, la nave dispara (20/08/2024)
 - Se agrega un misil que el jugador puede disparar (20/08/2024)
 - Se crean los scripts TimeManager y TimeUI, se agrega un TextMeshPro (20/08/2024)
-- Se agrego el contador de balas y un cooldown para el misil
+- Se agrego el contador de balas y un cooldown para el misil (20/08/2024)
+- Se agrego el modelo para el jefe (20/08/2024)
+- Se creo el script para el jefe (20/08/2024)
+- Se agrego material para hacer que los proyectiles tengan efecto de brillo (20/08/2024)
+- Se agregaron etiquetas para naves y proyectiles para asi ignorar colisiones entre proyectiles (20/08/2024)
+- Se agrego logica para patrones de proyectiles (21/08/2024)
 
 ### Changed
 
@@ -29,8 +34,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Se eliminó North Area y South Area de la escena (19/08/2024)
+- Se eliminaron los puntos de disparo y se dejo solo 1 (21/08/2024)
 
 ### Fixed
+
+- Patrones de proyectiles funcionales (21/08/2024)
 
 ### Security
 
