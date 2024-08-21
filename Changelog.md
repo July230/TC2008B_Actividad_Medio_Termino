@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se crea el script y se agrega en jetfighter, movimiento de la nave (20/08/2024)
 - Se crea el objeto Projectile y el script para el proyectil (20/08/2024)
 - Se agrega funcion para que jetfighter vea donde esta el cursor, la nave dispara (20/08/2024)
+- Se agrega un misil que el jugador puede disparar (20/08/2024)
+- Se crean los scripts TimeManager y TimeUI, se agrega un TextMeshPro (20/08/2024)
+- Se agrego el contador de balas y un cooldown para el misil
 
 ### Changed
 

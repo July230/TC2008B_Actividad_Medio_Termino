@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     public float nextShootTime = 0f;
     public float nextMissileTime = 0f;
 
+    public TimeUI timeUI;
+
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
     /// </summary>
@@ -64,7 +66,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && Time.time > nextMissileTime)
         {
             ShootMissile();
-            nextShootTime = Time.deltaTime * missileCoolDown;
+            nextShootTime = Time.deltaTime + missileCoolDown;
+            timeUI.SetNextMissileTime(); // Actualizar cooldown de misil
         }
     }
 
@@ -134,6 +137,14 @@ public class PlayerController : MonoBehaviour
             if (mis == null)
             {
                 mis.SetDirection(missileShootingPoint.forward);
+            }
+
+            // Actualizar el cooldown del misil
+            nextMissileTime = Time.time + missileCoolDown;
+            if (timeUI != null)
+            {
+                // Actualizar cooldown del UI
+                timeUI.SetNextMissileTime();
             }
         }
     }
