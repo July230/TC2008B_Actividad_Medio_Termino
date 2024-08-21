@@ -18,7 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se agrega funcion para que jetfighter vea donde esta el cursor, la nave dispara (20/08/2024)
 - Se agrega un misil que el jugador puede disparar (20/08/2024)
 - Se crean los scripts TimeManager y TimeUI, se agrega un TextMeshPro (20/08/2024)
-- Se agrego el contador de balas y un cooldown para el misil
+- Se agrego el contador de balas y un cooldown para el misil (20/08/2024)
+- Se agrego el modelo para el jefe (20/08/2024)
 
 ### Changed
 
