@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se crean los scripts TimeManager y TimeUI, se agrega un TextMeshPro (20/08/2024)
 - Se agrego el contador de balas y un cooldown para el misil (20/08/2024)
 - Se agrego el modelo para el jefe (20/08/2024)
+- Se creo el script para el jefe (20/08/2024)
+- Se agrego material para hacer que los proyectiles tengan efecto de brillo (20/08/2024)
 
 ### Changed
 

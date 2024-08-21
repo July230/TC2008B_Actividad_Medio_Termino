@@ -38,7 +38,7 @@ public class Laser : MonoBehaviour
     /// <summary>
     /// OnCollision maneja la logica de las colisiones de proyectiles
     /// </summary>
-    private void OnCollision(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         // Si choca con un enemigo, destruir proyectil y enemigo
         Destroy(gameObject);
