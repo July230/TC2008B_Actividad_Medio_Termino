@@ -8,6 +8,7 @@ TagManager:
   - Missile
   - Laser
   - Projectile
+  - Boss
   layers:
   - Default
   - TransparentFX

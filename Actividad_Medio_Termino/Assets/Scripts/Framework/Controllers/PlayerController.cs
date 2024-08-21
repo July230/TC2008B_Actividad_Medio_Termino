@@ -32,12 +32,18 @@ public class PlayerController : MonoBehaviour
 
     public TimeUI timeUI;
     private Camera mainCamera;
+    public Health playerHealth;
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
     /// </summary>
     void Start()
     {
+        playerHealth = GetComponent<Health>();
+        if (playerHealth == null)
+        {
+            Debug.Log("No se encontró el componente Health en el GameObject del jugador.");
+        }
         speed = 200;
         turnSpeed = 50;
         mainCamera = Camera.main;
@@ -62,16 +68,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && Time.time > nextShootTime)
         {
             ShootLaser();
-            nextShootTime = Time.deltaTime * shootInterval;
+            nextShootTime = Time.time * shootInterval;
         }
 
         // Click derecho para disparar misil
         if (Input.GetMouseButtonDown(1) && Time.time > nextMissileTime)
         {
             ShootMissile();
-            nextShootTime = Time.deltaTime + missileCoolDown;
+            nextMissileTime = Time.time + missileCoolDown;
             timeUI.SetNextMissileTime(); // Actualizar cooldown de misil
         }
+
+        RestrictPlayerToCamera();
     }
 
     /// <summary>
@@ -128,6 +136,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ShootMissile es llamado cada vez que se hace click derecho, contiene la logica de los disparos de los misiles
+    /// </summary>
     private void ShootMissile()
     {
         if (missilePrefab)
@@ -163,5 +174,16 @@ public class PlayerController : MonoBehaviour
         // Convertir de vuelta a coordenadas del mundo
         position = mainCamera.ViewportToWorldPoint(viewPointPosition);
         transform.position = position;
+    }
+
+    /// <summary>
+    /// ReceiveDamage es llamado cada vez que el jugador es impactado por un proyectil
+    /// </summary>
+    private void ReceiveDamage(int damage)
+    {
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(damage);
+        }
     }
 }

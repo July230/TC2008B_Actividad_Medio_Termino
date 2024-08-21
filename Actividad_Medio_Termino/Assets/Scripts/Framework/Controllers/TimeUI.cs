@@ -5,21 +5,29 @@ using TMPro;
 
 public class TimeUI : MonoBehaviour
 {
-    //public TextMeshProUGUI projectileCountText; // Referencia al texto que mostrara el contador de proyectiles
-    //public TextMeshProUGUI missileCooldownText; // Referencia al texto que mostrara el cooldown del misil
-    //public TextMeshProUGUI timeText;
     public TextMeshProUGUI infoText;
+    public TextMeshProUGUI playerHealthText;
+    public TextMeshProUGUI bossHealthText;
+    public TextMeshProUGUI missileCooldownText; // Referencia al texto que mostrara el cooldown del misil
 
     private int projectileCount = 0;
     private float missileCooldown = 15.0f;
     private float nextMissileTime = 0f;
+
+    private Health playerHealth;
+    private Health bossHealth;
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
     /// </summary>
     void Start()
     {
-        
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        bossHealth = GameObject.FindGameObjectWithTag("Boss").GetComponent<Health>();
+
+        Debug.Log($"Jugador {playerHealth}");
+        Debug.Log($"Jefe {bossHealth}");
+        UpdateInfoText();
     }
 
     /// <summary>
@@ -34,48 +42,78 @@ public class TimeUI : MonoBehaviour
         UpdateInfoText();
     }
 
+    /// <summary>
+    /// SetNextMissileTime actualiza el cooldown del misil
+    /// </summary>
     public void SetNextMissileTime()
     {
-        nextMissileTime = missileCooldown;
+        nextMissileTime = Time.time + missileCooldown;
     }
 
+    /// <summary>
+    /// OnEnable 
+    /// </summary>
     private void OnEnable()
     {
         TimeManager.OnSecondChanged += UpdateInfoText;
         TimeManager.OnMinuteChanged += UpdateInfoText;
     }
 
+    /// <summary>
+    /// OnDisable 
+    /// </summary>
     private void OnDisable()
     {
         TimeManager.OnSecondChanged -= UpdateInfoText;
         TimeManager.OnMinuteChanged -= UpdateInfoText;
     }
 
+    /// <summary>
+    /// UpdateInfoText actualiza el objeto text para mostrar informacion en el UI 
+    /// </summary>
     public void UpdateInfoText()
     {
         if (infoText != null)
         {
-            float remainingCooldown = Mathf.Max(0, nextMissileTime - Time.time);
             string info = $"Proyectiles: {projectileCount}\n" +
-                          $"Missile cooldown: {remainingCooldown:F1}s\n" +
                           $"Tiempo: {TimeManager.Minute.ToString("00")}:{TimeManager.Second:00}";
-
-            if (remainingCooldown <= 0)
-            {
-                // Misil listo para disparar
-                infoText.color = Color.green;
-            }
-            else
-            {
-                // Misil cargando
-                infoText.color = Color.red;
-            }
-
             infoText.text = info;
         }
         else
         {
             Debug.Log("infoText no esta asignado");
+        }
+
+        // Actualizar la vida del jugador y del jefe en la UI
+        if (playerHealthText != null && playerHealth != null)
+        {
+            playerHealthText.text = $"HP: {playerHealth.currentHealth}/{playerHealth.maxHealth}";
+        }
+        if (bossHealthText != null && bossHealth != null)
+        {
+            bossHealthText.text = $"HP: {bossHealth.currentHealth}/{bossHealth.maxHealth}";
+        }
+
+        // Actualizar cooldown del misil
+        if (missileCooldownText != null)
+        {
+            float remainingCooldown = Mathf.Max(0, nextMissileTime - Time.time);
+            missileCooldownText.text = $"Missile cooldown: {remainingCooldown:F1}s\n";
+
+            if (remainingCooldown <= 0)
+            {
+                // Misil listo para disparar
+                missileCooldownText.color = Color.green;
+            }
+            else
+            {
+                // Misil cargando
+                missileCooldownText.color = Color.red;
+            }
+        }
+        else
+        {
+            Debug.Log("missileCooldownText no está asignado");
         }
     }
 }
