@@ -49,23 +49,31 @@ public class Missile : MonoBehaviour
         direction = dir;
     }
 
-    /*
     /// <summary>
-    /// OnCollision maneja la logica de las colisiones del misil
+    /// OnTriggerEnter maneja la logica de las colisiones del proyectil de enemigos y jefes
     /// </summary>
-    private void OnCollision(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         // Ignorar colisiones con otros proyectiles, misiles y laseres
-        if (collision.gameObject.CompareTag("Projectile") || 
-            collision.gameObject.CompareTag("Laser") || 
-            collision.gameObject.CompareTag("Missile"))
+        if (other.gameObject.CompareTag("Projectile") || 
+            other.gameObject.CompareTag("Laser") || 
+            other.gameObject.CompareTag("Missile") || 
+            other.gameObject.CompareTag("Player"))
         {
             return;
         }
 
-        Debug.Log("Proyectil impactó en el objetivo: " + collision.gameObject.name);
-        // Si choca con un enemigo, destruir proyectil y enemigo
+        // Si el proyectil impacta contra un jugador
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            Health enemyHealth = other.gameObject.GetComponent<Health>();
+            if(enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(10);
+            }
+        }
+        Debug.Log("Proyectil impactó en el objetivo: " + other.gameObject.name);
+        // Destruir proyectil al colisionar
         Destroy(gameObject);
     }
-    */
 }

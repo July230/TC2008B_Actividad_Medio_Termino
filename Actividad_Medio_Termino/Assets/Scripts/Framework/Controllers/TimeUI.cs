@@ -14,12 +14,15 @@ public class TimeUI : MonoBehaviour
     private float missileCooldown = 15.0f;
     private float nextMissileTime = 0f;
 
+    private Health playerHealth;
+    private Health bossHealth;
+
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
     /// </summary>
     void Start()
     {
-        
+
     }
 
     /// <summary>

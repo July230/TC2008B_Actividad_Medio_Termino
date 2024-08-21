@@ -24,6 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se agrego material para hacer que los proyectiles tengan efecto de brillo (20/08/2024)
 - Se agregaron etiquetas para naves y proyectiles para asi ignorar colisiones entre proyectiles (20/08/2024)
 - Se agrego logica para patrones de proyectiles (21/08/2024)
+- Se agregaron colisiones (21/08/2024)
+- Se agrego el script Health para tener puntos de vida (21/08/2024)
+- Se agrego vida a jugador y jefe (21/08/2024)
 
 ### Changed
 

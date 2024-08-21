@@ -32,12 +32,22 @@ public class PlayerController : MonoBehaviour
 
     public TimeUI timeUI;
     private Camera mainCamera;
+    private Health playerHealth;
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
     /// </summary>
     void Start()
     {
+        playerHealth = GetComponent<Health>();
+        if (playerHealth == null)
+        {
+            Debug.Log("No se encontro el componente Health para el jugador");
+        }
+        else 
+        {
+            playerHealth.TakeDamage(0);
+        }
         speed = 200;
         turnSpeed = 50;
         mainCamera = Camera.main;
@@ -128,6 +138,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ShootMissile es llamado cada vez que se hace click derecho, contiene la logica de los disparos de los misiles
+    /// </summary>
     private void ShootMissile()
     {
         if (missilePrefab)
@@ -163,5 +176,16 @@ public class PlayerController : MonoBehaviour
         // Convertir de vuelta a coordenadas del mundo
         position = mainCamera.ViewportToWorldPoint(viewPointPosition);
         transform.position = position;
+    }
+
+    /// <summary>
+    /// ReceiveDamage es llamado cada vez que el jugador es impactado por un proyectil
+    /// </summary>
+    private void ReceiveDamage(int damage)
+    {
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(damage);
+        }
     }
 }

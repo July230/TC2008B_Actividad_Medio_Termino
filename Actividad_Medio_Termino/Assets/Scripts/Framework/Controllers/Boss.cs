@@ -26,11 +26,22 @@ public class Boss : MonoBehaviour
     private Vector3[] initialPositions; // Posiciones iniciales de los puntos de disparos
     public float attackPointRotation = 1000.0f; // Velocidad de rotacion para los puntos de disparos
 
+    private Health bossHealth;
+
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
     /// </summary>
     void Start()
     {
+        bossHealth = GetComponent<Health>();
+        if(bossHealth == null)
+        {
+            Debug.Log("No se encontro el componente Health para el jugador");
+        }
+        else
+        {
+            bossHealth.TakeDamage(0);
+        }
         attackTimer = attackInterval;
         patternChangeTimer = patternChangeInterval;
 
@@ -245,5 +256,16 @@ public class Boss : MonoBehaviour
     private void MoveBoss()
     {
         // Si hay tiempo, implementar logica para que jefe se mueva
+    }
+
+    /// <summary>
+    /// ReceiveDamage es llamado cada vez que el jefe es impactado por un proyectil
+    /// </summary>
+    private void ReceiveDamage(int damage)
+    {
+        if (bossHealth != null)
+        {
+            bossHealth.TakeDamage(damage);
+        }
     }
 }

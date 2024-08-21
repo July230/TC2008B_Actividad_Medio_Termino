@@ -42,25 +42,6 @@ public class BossProjectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    /*
-    /// <summary>
-    /// OnCollisionEnter maneja la logica de las colisiones de laser
-    /// </summary>
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Ignorar colisiones con otros proyectiles, misiles y laseres
-        if (collision.gameObject.CompareTag("Projectile") || 
-            collision.gameObject.CompareTag("Laser") || 
-            collision.gameObject.CompareTag("Missile"))
-        {
-            return;
-        }
-
-        Debug.Log("Proyectil impactó en el objetivo: " + collision.gameObject.name);
-        // Si choca con un enemigo, destruir proyectil y enemigo
-        Destroy(gameObject);
-    }
-    */
     /// <summary>
     /// Configura la direccion del laser
     /// </summary>
@@ -69,4 +50,34 @@ public class BossProjectile : MonoBehaviour
         // Normalizar la direccion para mantener velocidad constante
         direction = dir.normalized;
     }
+    
+    /// <summary>
+    /// OnTriggerEnter maneja la logica de las colisiones del proyectil de enemigos y jefes
+    /// </summary>
+    private void OnTriggerEnter(Collider other)
+    {
+        // Ignorar colisiones con otros proyectiles, misiles y laseres
+        if (other.gameObject.CompareTag("Projectile") || 
+            other.gameObject.CompareTag("Laser") || 
+            other.gameObject.CompareTag("Missile") ||
+            other.gameObject.CompareTag("Enemy") ||
+            other.gameObject.CompareTag("Boss"))
+        {
+            return;
+        }
+
+        // Si el proyectil impacta contra un jugador
+        if(other.gameObject.CompareTag("Player"))
+        {
+            Health healthPlayer = other.gameObject.GetComponent<Health>();
+            if(healthPlayer != null)
+            {
+                healthPlayer.TakeDamage(1);
+            }
+        }
+        Debug.Log("Proyectil impactó en el objetivo: " + other.gameObject.name);
+        // Destruir proyectil al colisionar
+        Destroy(gameObject);
+    }
+
 }
