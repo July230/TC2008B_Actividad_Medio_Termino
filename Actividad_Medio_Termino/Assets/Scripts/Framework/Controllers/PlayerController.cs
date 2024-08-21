@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         speed = 200;
         turnSpeed = 50;
         mainCamera = Camera.main;
-        transform.position = new Vector3(0, 10, -500);
+        transform.position = new Vector3(0, 30, -500);
     }
 
     /// <summary>
