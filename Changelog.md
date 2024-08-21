@@ -38,6 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Patrones de proyectiles funcionales (21/08/2024)
+
 ### Security
 
 ## [0.0.1] - 19/08/2024

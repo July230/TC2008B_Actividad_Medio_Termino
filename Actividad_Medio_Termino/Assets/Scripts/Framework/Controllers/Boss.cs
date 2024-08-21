@@ -83,11 +83,17 @@ public class Boss : MonoBehaviour
             case 2:
                 yield return StartCoroutine(PatternThree());
                 break;
+            case 3: 
+                yield return StartCoroutine(PatternFour());
+                break;
+            case 4: 
+                yield return StartCoroutine(PatternFive());
+                break;
         }
     }
 
     /// <summary>
-    /// ChangeAttackPattern tiene la logica para cambiar de patrones de disparo
+    /// ChangeAttackPattern tiene la logica para cambiar de patrones de disparo de forma aleatoria
     /// </summary>
     private IEnumerator ChangeAttackPattern()
     {
@@ -97,19 +103,17 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(patternPause);
 
         // Cambiar al siguiente patron
-        currentPattern++;
-        if(currentPattern >= 3)
-        {
-            currentPattern = 0;
-        }
+        //int numberOfPatterns = 5;
+        //currentPattern = Random.Range(0, numberOfPatterns);
+        currentPattern = 4;
     }
 
     /// <summary>
-    /// PatternOne tiene la logica para un patron de disparo
+    /// PatternOne tiene la logica para un patron de disparo en cruz
     /// </summary>
     private IEnumerator PatternOne()
     {
-        // Patron de ataque 1: disparar desde un punto en diferentes direcciones
+        attackInterval = 0.3f;
         int numberOfProjectiles = 4;
         float angleStep = 360f / numberOfProjectiles; 
 
@@ -129,12 +133,12 @@ public class Boss : MonoBehaviour
     }
 
     /// <summary>
-    /// PatternTwo tiene la logica para un patron de disparo
+    /// PatternTwo tiene la logica para disparar en espiral
     /// </summary>
     private IEnumerator PatternTwo()
     {
-        // Patron de ataque 2: disparar en espiral
-        int numberOfProjectiles = 8;
+        attackInterval = 0.3f;
+        int numberOfProjectiles = 6;
         float angleStep = 360f / numberOfProjectiles; 
         float spiralSpeed = 30.0f;
 
@@ -150,17 +154,19 @@ public class Boss : MonoBehaviour
                 // Configurar la direccion del proyectil
                 bossProjectile.SetDirection(direction);
             }
+            yield return new WaitForSeconds(timeBetweenShoots);
         }
 
         yield return new WaitForSeconds(attackInterval); // Tiempo entre disparos
     }
 
     /// <summary>
-    /// PatternThree tiene la logica para un patron de disparo en rafagas
+    /// PatternThree tiene la logica para un patron de disparo consecutivo
     /// </summary>
     private IEnumerator PatternThree()
     {
-        int numberOfProjectiles = 8;
+        attackInterval = 0.5f;
+        int numberOfProjectiles = 18;
         float angleStep = 360f / numberOfProjectiles; 
 
         for (int i = 0; i < numberOfProjectiles; i++)
@@ -175,6 +181,59 @@ public class Boss : MonoBehaviour
                 bossProjectile.SetDirection(direction);
             }
             yield return new WaitForSeconds(timeBetweenShoots);
+        }
+
+        yield return new WaitForSeconds(attackInterval);
+    }
+
+    /// <summary>
+    /// PatternFive tiene la logica para un patron oscilante
+    /// </summary>
+    private IEnumerator PatternFour()
+    {
+        attackInterval = 0.5f;
+        int numberOfProjectiles = 8;
+        float angleStep = 360f / numberOfProjectiles;
+        float osillationAmplitude = 15.0f; // Amplitud de la oscilacion en grados
+        float osillationFrequency = 2.0f; // Frecuencia de la oscilacion
+
+        for (int i = 0; i < numberOfProjectiles; i++)
+        {
+            float angle = i * angleStep;
+            float osillationAngle = angle + Mathf.Sin(Time.time * osillationFrequency) * osillationAmplitude;
+            Vector3 direction = new Vector3(Mathf.Cos(osillationAngle * Mathf.Deg2Rad), 0, Mathf.Sin(osillationAngle * Mathf.Deg2Rad)).normalized;
+
+            GameObject projectile = Instantiate(projectilePrefab, attackPoint.position, Quaternion.LookRotation(direction));
+            BossProjectile bossProjectile = projectile.GetComponent<BossProjectile>();
+            if(bossProjectile != null)
+            {
+                bossProjectile.SetDirection(direction);
+            }
+            yield return new WaitForSeconds(timeBetweenShoots);
+        }
+
+        yield return new WaitForSeconds(attackInterval);
+    }
+
+    /// <summary>
+    /// PatternFive tiene la logica para un patron en rafagas 
+    /// </summary>
+    private IEnumerator PatternFive()
+    {
+        int numberOfProjectiles = 30;
+        float angleStep = 360f / numberOfProjectiles; 
+        attackInterval = 3.0f;
+
+        for (int i = 0; i < numberOfProjectiles; i++)
+        {
+            float angle = i * angleStep;
+            Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
+            GameObject projectile = Instantiate(projectilePrefab, attackPoint.position, Quaternion.LookRotation(direction));
+            BossProjectile bossProjectile = projectile.GetComponent<BossProjectile>();
+            if(bossProjectile != null)
+            {
+                bossProjectile.SetDirection(direction); // Configurar la direccion del proyectil
+            }
         }
 
         yield return new WaitForSeconds(attackInterval); // Tiempo entre disparos
