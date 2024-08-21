@@ -109,8 +109,6 @@ public class PlayerController : MonoBehaviour
     {
         if (laserPrefab)
         {
-            Debug.Log("Click izquierdo");
-
             // Disparar desde el primer punto de disparo
             GameObject projectile1 = Instantiate(laserPrefab, shootingPoint1.position, shootingPoint1.rotation);
             Laser laser1 = projectile1.GetComponent<Laser>();
@@ -133,7 +131,6 @@ public class PlayerController : MonoBehaviour
     {
         if (missilePrefab)
         {
-            Debug.Log("Click derecho");
             GameObject missile = Instantiate(missilePrefab, missileShootingPoint.position, missileShootingPoint.rotation);
             Missile mis = missile.GetComponent<Missile>();
             if (mis == null)

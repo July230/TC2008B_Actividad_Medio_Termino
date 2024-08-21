@@ -11,8 +11,8 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     public GameObject projectilePrefab;
-    public Transform[] attackPoints; // Puntos desde donde el jefe dispara
-    public float attackInterval = 2.0f; // Tiempo entre cada serie de disparos
+    public Transform attackPoint; // Puntos desde donde el jefe dispara
+    public float attackInterval = 1.0f; // Tiempo entre cada serie de disparos
     public float timeBetweenShoots = 0.2f; // Tiempo entre disparos consecutivos
     public float moveSpeed = 1.0f; // Velocidad de movimiento del jefe
 
@@ -34,13 +34,9 @@ public class Boss : MonoBehaviour
         attackTimer = attackInterval;
         patternChangeTimer = patternChangeInterval;
 
-        // Guardar posiciones iniciales de los puntos de disparo del jefe
-        initialPositions = new Vector3[attackPoints.Length];
-        for(int i = 0; i < attackPoints.Length; i++)
-        {
-            // Calcular la posicion inicial con respecto al jefe
-            initialPositions[i] = attackPoints[i].position - transform.position;
-        }
+        // Iniciar la posicion del punto de ataque
+        initialPositions = new Vector3[1];
+        initialPositions[0] = attackPoint.position - transform.position;
     }
 
     /// <summary>
@@ -63,9 +59,6 @@ public class Boss : MonoBehaviour
             StartCoroutine(ChangeAttackPattern());
             patternChangeTimer = patternChangeInterval;
         }
-
-        // Mover puntos de disparo en patron circular
-        RotateAttackPoints();
 
         // Si hay tiempo, agregar logica para mover al jefe
         // MoveBoss();
@@ -116,14 +109,19 @@ public class Boss : MonoBehaviour
     /// </summary>
     private IEnumerator PatternOne()
     {
-        // Patron de ataque 1: disparar desde diferentes puntos
-        foreach (var point in attackPoints)
+        // Patron de ataque 1: disparar desde un punto en diferentes direcciones
+        int numberOfProjectiles = 4;
+        float angleStep = 360f / numberOfProjectiles; 
+
+        for (int i = 0; i < numberOfProjectiles; i++)
         {
-            GameObject projectile = Instantiate(projectilePrefab, point.position, point.rotation);
+            float angle = i * angleStep;
+            Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
+            GameObject projectile = Instantiate(projectilePrefab, attackPoint.position, Quaternion.LookRotation(direction));
             BossProjectile bossProjectile = projectile.GetComponent<BossProjectile>();
             if(bossProjectile != null)
             {
-                bossProjectile.SetDirection(point.forward); // Configurar la direccion del proyectil
+                bossProjectile.SetDirection(direction); // Configurar la direccion del proyectil
             }
         }
 
@@ -135,16 +133,22 @@ public class Boss : MonoBehaviour
     /// </summary>
     private IEnumerator PatternTwo()
     {
-        // Patron de ataque 1: disparar desde diferentes puntos
-        foreach (var point in attackPoints)
+        // Patron de ataque 2: disparar en espiral
+        int numberOfProjectiles = 8;
+        float angleStep = 360f / numberOfProjectiles; 
+        float spiralSpeed = 30.0f;
+
+        for (int i = 0; i < numberOfProjectiles; i++)
         {
-            GameObject projectile = Instantiate(projectilePrefab, point.position, point.rotation);
+            float angle = i * angleStep + (Time.time * spiralSpeed);
+            Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
+
+            GameObject projectile = Instantiate(projectilePrefab, attackPoint.position, Quaternion.LookRotation(direction));
             BossProjectile bossProjectile = projectile.GetComponent<BossProjectile>();
             if(bossProjectile != null)
             {
                 // Configurar la direccion del proyectil
-                Vector3 spiralDirection = new Vector3(Mathf.Cos(Time.time), Mathf.Sin(Time.time), 0).normalized;
-                bossProjectile.SetDirection(spiralDirection);
+                bossProjectile.SetDirection(direction);
             }
         }
 
@@ -156,38 +160,24 @@ public class Boss : MonoBehaviour
     /// </summary>
     private IEnumerator PatternThree()
     {
-        // Patron de ataque 1: disparar desde diferentes puntos
-        foreach (var point in attackPoints)
+        int numberOfProjectiles = 8;
+        float angleStep = 360f / numberOfProjectiles; 
+
+        for (int i = 0; i < numberOfProjectiles; i++)
         {
-            GameObject projectile = Instantiate(projectilePrefab, point.position, point.rotation);
+            float angle = i * angleStep;
+            Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
+
+            GameObject projectile = Instantiate(projectilePrefab, attackPoint.position, Quaternion.LookRotation(direction));
             BossProjectile bossProjectile = projectile.GetComponent<BossProjectile>();
             if(bossProjectile != null)
             {
-                bossProjectile.SetDirection(point.forward);
+                bossProjectile.SetDirection(direction);
             }
             yield return new WaitForSeconds(timeBetweenShoots);
         }
 
         yield return new WaitForSeconds(attackInterval); // Tiempo entre disparos
-    }
-
-    /// <summary>
-    /// MoveAttackPoints tiene la logica para la rotacion de los puntos de disparo alrededor del jefe
-    /// </summary>
-    private void RotateAttackPoints()
-    {
-        
-        for (int i = 0; i < attackPoints.Length; i++)
-        {
-            float angle = attackPointRotation * Time.deltaTime;
-
-            // Calcular la nueva posicion
-            Vector3 offset = initialPositions[i];
-            float x = offset.x * Mathf.Cos(angle) - offset.z * Mathf.Sin(angle);
-            float z = offset.x * Mathf.Cos(angle) - offset.z * Mathf.Sin(angle);
-
-            attackPoints[i].position = new Vector3(x, offset.y, z) + transform.position;
-        }
     }
 
     /// <summary>

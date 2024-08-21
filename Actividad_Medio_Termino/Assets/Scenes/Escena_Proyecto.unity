@@ -277,11 +277,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &258028749 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5408266678828014392, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
-  m_PrefabInstance: {fileID: 5231765591355259755}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &272474245
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,11 +308,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1140533007}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &309022824 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1149763251526443677, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
-  m_PrefabInstance: {fileID: 5231765591355259755}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &368257130
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,11 +696,6 @@ Transform:
   - {fileID: 4521093002726536299}
   m_Father: {fileID: 153702490}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1074970624 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2731121960963634222, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
-  m_PrefabInstance: {fileID: 5231765591355259755}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1097549912
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,11 +766,6 @@ Transform:
   - {fileID: 272474246}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1195490348 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7615752365052844839, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
-  m_PrefabInstance: {fileID: 5231765591355259755}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1287137048
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,11 +814,6 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 497599976960364890, guid: d9189d23550134d82a51abe058b5831c, type: 3}
   m_PrefabInstance: {fileID: 8546442601293081998}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1385575898 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5035822573220364060, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
-  m_PrefabInstance: {fileID: 5231765591355259755}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1515818905 stripped
 Transform:
@@ -1146,50 +1121,11 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 798581766414191903, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7092278280661050900}
+      addedObject: {fileID: 7092278280661050901}
     - targetCorrespondingSourceObject: {fileID: 798581766414191903, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7092278280661050901}
+      addedObject: {fileID: 7092278280661050906}
   m_SourcePrefab: {fileID: 100100000, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
---- !u!4 &5231765591355259756 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1489233923885288341, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
-  m_PrefabInstance: {fileID: 5231765591355259755}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5231765591355259757 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5816515684012360190, guid: f5bf173c6082c40b0ba4bb378c00e14d, type: 3}
-  m_PrefabInstance: {fileID: 5231765591355259755}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7092278280661050900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3888284939874250449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301120023e6e045d980519c92c90b0ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 47242456740718973, guid: abcea698c951e4867912d7d206904d55, type: 3}
-  attackPoints:
-  - {fileID: 1515818905}
-  - {fileID: 258028749}
-  - {fileID: 1195490348}
-  - {fileID: 1385575898}
-  - {fileID: 1074970624}
-  - {fileID: 309022824}
-  - {fileID: 5231765591355259757}
-  - {fileID: 5231765591355259756}
-  attackInterval: 2
-  timeBetweenShoots: 0.2
-  moveSpeed: 1
-  patternChangeInterval: 15
-  patternPause: 2
-  patternChangeTimer: 0
-  attackPointRotation: 30
 --- !u!135 &7092278280661050901
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1211,6 +1147,27 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7092278280661050906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888284939874250449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301120023e6e045d980519c92c90b0ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 47242456740718973, guid: abcea698c951e4867912d7d206904d55, type: 3}
+  attackPoint: {fileID: 1515818905}
+  attackInterval: 1
+  timeBetweenShoots: 0.2
+  moveSpeed: 1
+  patternChangeInterval: 15
+  patternPause: 2
+  patternChangeTimer: 0
+  attackPointRotation: 1000
 --- !u!1001 &8546442601293081998
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Se eliminó North Area y South Area de la escena (19/08/2024)
+- Se eliminaron los puntos de disparo y se dejo solo 1 (21/08/2024)
 
 ### Fixed
 

@@ -39,7 +39,6 @@ public class BossProjectile : MonoBehaviour
     /// </summary>
     void OnBecameInvisible()
     {
-        Debug.Log("Proyectil se ha vuelto invisible");
         Destroy(gameObject);
     }
 
