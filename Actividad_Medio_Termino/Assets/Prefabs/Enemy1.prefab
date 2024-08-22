@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4114444489938206486}
   - component: {fileID: 4759756804813787252}
   - component: {fileID: 8272219465339186758}
+  - component: {fileID: -4547503742086023164}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -151,12 +152,31 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 8
   m_Center: {x: 0, y: 0, z: 5}
+--- !u!114 &-4547503742086023164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748262492165750294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f5eb2ff98cab42a4bed7778edc86e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 100
+  projectilePrefab: {fileID: 47242456740718973, guid: abcea698c951e4867912d7d206904d55, type: 3}
+  attackPoint: {fileID: 5602656092418562792}
+  health: 30
+  currentHealth: 0
+  shootInterval: 1.5
+  nextShootTime: 0
 --- !u!1 &4417346104908449805
 GameObject:
   m_ObjectHideFlags: 0

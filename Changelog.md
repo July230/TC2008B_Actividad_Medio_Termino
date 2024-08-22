@@ -31,6 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se agrego informacion adicional en el UI (21/08/2024)
 - Se agrego modelo para enemigo (21/08/2024)
 - Se agrego script para enemigo (21/08/2024)
+- Se crearon los script RoundManager y EnemyManager (21/08/2024)
+- Se crearon los objetos RoundManager y EnemyManager en la escena (21/08/2024)
+- Se implementa aparicion dinamica de enemigos (21/08/2024)
 
 ### Changed
 

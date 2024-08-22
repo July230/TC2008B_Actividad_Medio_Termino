@@ -10,10 +10,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 50.0f;
+    public float speed = 100.0f;
     public GameObject projectilePrefab;
     public Transform attackPoint;
-    public int health = 100;
+    public int health = 30;
     public int currentHealth; 
     public float shootInterval = 1.5f;
     public float nextShootTime = 0f;

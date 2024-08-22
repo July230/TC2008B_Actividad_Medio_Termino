@@ -75,7 +75,6 @@ public class BossProjectile : MonoBehaviour
                 healthPlayer.TakeDamage(1);
             }
         }
-        Debug.Log("Proyectil impactó en el objetivo: " + other.gameObject.name);
         // Destruir proyectil al colisionar
         Destroy(gameObject);
     }
