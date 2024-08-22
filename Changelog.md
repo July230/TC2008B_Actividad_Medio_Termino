@@ -29,6 +29,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se agrego vida a jugador y jefe (21/08/2024)
 - Se agrego script Health a los objetos (21/08/2024)
 - Se agrego informacion adicional en el UI (21/08/2024)
+- Se agrego modelo para enemigo (21/08/2024)
+- Se agrego script para enemigo (21/08/2024)
+- Se crearon los script RoundManager y EnemyManager (21/08/2024)
+- Se crearon los objetos RoundManager y EnemyManager en la escena (21/08/2024)
+- Se implementa aparicion dinamica de enemigos (21/08/2024)
+- Se implementa aparicion dinamica de jefe (21/08/2024)
+- Se implementan rondas (21/08/2024)
+- Se agregaron particulas para imitar humo (21/08/2024)
+- Se implementaron invocaciones de enemigos a partir de la vida del jefe (21/08/2024)
+- Se agrego un mensaje de felicitaciones (22/08/2024)
 
 ### Changed
 
@@ -44,6 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Patrones de proyectiles funcionales (21/08/2024)
+- Se arregla un bug en el contador de misiles (22/08/2024)
 
 ### Security
 

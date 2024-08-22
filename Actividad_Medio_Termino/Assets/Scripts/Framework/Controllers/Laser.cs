@@ -72,7 +72,7 @@ public class Laser : MonoBehaviour
                 enemyHealth.TakeDamage(1);
             }
         }
-        Debug.Log("Proyectil impactó en el objetivo: " + other.gameObject.name);
+        // Debug.Log("Proyectil impactó en el objetivo: " + other.gameObject.name);
         // Destruir proyectil al colisionar
         Destroy(gameObject);
     }

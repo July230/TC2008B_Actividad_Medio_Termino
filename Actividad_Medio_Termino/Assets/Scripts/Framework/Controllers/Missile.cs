@@ -69,10 +69,10 @@ public class Missile : MonoBehaviour
             Health enemyHealth = other.gameObject.GetComponent<Health>();
             if(enemyHealth != null)
             {
-                enemyHealth.TakeDamage(10);
+                enemyHealth.TakeDamage(50);
             }
         }
-        Debug.Log("Proyectil impactó en el objetivo: " + other.gameObject.name);
+        // Debug.Log("Proyectil impactó en el objetivo: " + other.gameObject.name);
         // Destruir proyectil al colisionar
         Destroy(gameObject);
     }

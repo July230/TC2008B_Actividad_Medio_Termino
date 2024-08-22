@@ -11,15 +11,16 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     public GameObject projectilePrefab;
+    public GameObject enemyPrefab;
+    public Transform[] spawnPoints; // Puntos donde aparecerán los enemigos
     public Transform attackPoint; // Puntos desde donde el jefe dispara
     public float attackInterval = 1.0f; // Tiempo entre cada serie de disparos
     public float timeBetweenShoots = 0.2f; // Tiempo entre disparos consecutivos
-    public float moveSpeed = 1.0f; // Velocidad de movimiento del jefe
 
     private int currentPattern = 0; // Patron del ataque actual
     private float attackTimer;
-    public float patternChangeInterval = 15.0f;
-    public float patternPause = 2.0f;
+    public float patternChangeInterval = 10.0f;
+    public float patternPause = 1.0f;
     public float patternChangeTimer;
 
     // Parametros para mover los puntos de disparo
@@ -44,6 +45,8 @@ public class Boss : MonoBehaviour
         // Iniciar la posicion del punto de ataque
         initialPositions = new Vector3[1];
         initialPositions[0] = attackPoint.position - transform.position;
+
+        transform.position = new Vector3(0, 30, 0);
     }
 
     /// <summary>
@@ -67,8 +70,6 @@ public class Boss : MonoBehaviour
             patternChangeTimer = patternChangeInterval;
         }
 
-        // Si hay tiempo, agregar logica para mover al jefe
-        // MoveBoss();
     }
 
     /// <summary>
@@ -110,9 +111,8 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(patternPause);
 
         // Cambiar al siguiente patron
-        //int numberOfPatterns = 5;
-        //currentPattern = Random.Range(0, numberOfPatterns);
-        currentPattern = 4;
+        int numberOfPatterns = 5;
+        currentPattern = Random.Range(0, numberOfPatterns);
     }
 
     /// <summary>
@@ -244,14 +244,6 @@ public class Boss : MonoBehaviour
         }
 
         yield return new WaitForSeconds(attackInterval); // Tiempo entre disparos
-    }
-
-    /// <summary>
-    /// MoveBoss tiene la logica del movimiento del jefe
-    /// </summary>
-    private void MoveBoss()
-    {
-        // Si hay tiempo, implementar logica para que jefe se mueva
     }
 
     /// <summary>
