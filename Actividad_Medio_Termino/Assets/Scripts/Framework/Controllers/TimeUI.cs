@@ -11,6 +11,7 @@ public class TimeUI : MonoBehaviour
     public TextMeshProUGUI missileCooldownText; // Referencia al texto que mostrara el cooldown del misil
 
     private int projectileCount = 0;
+    private int enemyCount = 0;
     private float missileCooldown = 15.0f;
     private float nextMissileTime = 0f;
 
@@ -43,6 +44,13 @@ public class TimeUI : MonoBehaviour
 
         // Actualizar el contador de proyectiles basado en la cantidad en escena
         projectileCount = FindObjectsOfType<Laser>().Length + FindObjectsOfType<Missile>().Length + FindObjectsOfType<BossProjectile>().Length;
+        enemyCount = FindObjectsOfType<Boss>().Length + FindObjectsOfType<Enemy>().Length;
+
+        // Si el jefe ha sido destruido, ocultar el texto de su salud
+        if (bossHealth.currentHealth <= 0)
+        {
+            bossHealthText.gameObject.SetActive(false);
+        }
 
         // Actualiza la informacion mostrada
         UpdateInfoText();
@@ -82,6 +90,7 @@ public class TimeUI : MonoBehaviour
         if (infoText != null)
         {
             string info = $"Proyectiles: {projectileCount}\n" +
+                          $"Enemigos: {enemyCount}\n" +
                           $"Tiempo: {TimeManager.Minute.ToString("00")}:{TimeManager.Second:00}";
             infoText.text = info;
         }
@@ -97,7 +106,7 @@ public class TimeUI : MonoBehaviour
         }
         if (bossHealthText != null && bossHealth != null)
         {
-            bossHealthText.text = $"HP: {bossHealth.currentHealth}/{bossHealth.maxHealth}";
+            bossHealthText.text = $"Boss HP: {bossHealth.currentHealth}/{bossHealth.maxHealth}";
         }
 
         // Actualizar cooldown del misil
