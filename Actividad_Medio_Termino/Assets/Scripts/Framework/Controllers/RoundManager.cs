@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// La clase round manager se encarga de administrar las rondas
@@ -14,6 +15,8 @@ public class RoundManager : MonoBehaviour
     int totalRounds = 3;
     public float roundDelay = 5.0f; // Tiempo entre rondas
     private int currentRound = 0;
+    public TextMeshProUGUI levelCompletedText;
+
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
@@ -59,5 +62,17 @@ public class RoundManager : MonoBehaviour
             yield return new WaitForSeconds(roundDelay);
         }
         Debug.Log("Todas las rondas completadas");
+
+        // Mensaje de nivel completado
+        if (levelCompletedText != null)
+        {
+            levelCompletedText.color = Color.green;
+            levelCompletedText.text = "Nivel completado, felicidades";
+            levelCompletedText.gameObject.SetActive(true); // Asegurarse de que el texto sea visible
+        }
+        else
+        {
+            Debug.LogError("No se encontró levelCompletedText en la escena");
+        }
     }
 }

@@ -29,7 +29,7 @@ public class Health : MonoBehaviour
         }
         else if(gameObject.CompareTag("Enemy"))
         {
-            maxHealth = 30;
+            maxHealth = 100;
         }
         currentHealth = maxHealth;
     }
@@ -58,6 +58,20 @@ public class Health : MonoBehaviour
         if (explosionEffectPrefab != null)
         {
             Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+        }
+
+        if (gameObject.CompareTag("Player"))
+        {
+            // Funcion para reiniciar el juego
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            if(gameManager != null)
+            {
+                gameManager.RestartGame();
+            }
+            else
+            {
+                Debug.LogError("No se encontro GameManager en la escena");
+            }
         }
         Destroy(gameObject);
     }
