@@ -28,7 +28,7 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("EnemyManager no asignado en el RoundManager");
+            Debug.Log("EnemyManager no asignado en el RoundManager");
         }
     }
 

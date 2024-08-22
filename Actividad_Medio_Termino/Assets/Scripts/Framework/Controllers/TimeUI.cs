@@ -47,7 +47,7 @@ public class TimeUI : MonoBehaviour
         enemyCount = FindObjectsOfType<Boss>().Length + FindObjectsOfType<Enemy>().Length;
 
         // Si el jefe ha sido destruido, ocultar el texto de su salud
-        if (bossHealth.currentHealth <= 0)
+        if(bossHealth.currentHealth <= 0)
         {
             bossHealthText.gameObject.SetActive(false);
         }
@@ -113,6 +113,7 @@ public class TimeUI : MonoBehaviour
         if (missileCooldownText != null)
         {
             float remainingCooldown = Mathf.Max(0, nextMissileTime - Time.time);
+            //Debug.Log($"Cooldown misil: {remainingCooldown}");
             missileCooldownText.text = $"Missile cooldown: {remainingCooldown:F1}s\n";
 
             if (remainingCooldown <= 0)

@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se implementan rondas (21/08/2024)
 - Se agregaron particulas para imitar humo (21/08/2024)
 - Se implementaron invocaciones de enemigos a partir de la vida del jefe (21/08/2024)
+- Se agrego un mensaje de felicitaciones (22/08/2024)
 
 ### Changed
 
@@ -53,6 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Patrones de proyectiles funcionales (21/08/2024)
+- Se arregla un bug en el contador de misiles (22/08/2024)
 
 ### Security
 
