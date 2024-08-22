@@ -13,7 +13,7 @@ public class RoundManager : MonoBehaviour
     public EnemyManager enemyManager; // Referencia al EnemyManager
     int totalRounds = 3;
     public float roundDelay = 5.0f; // Tiempo entre rondas
-    private int currentRound = 0;
+    private int currentRound = 2;
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame

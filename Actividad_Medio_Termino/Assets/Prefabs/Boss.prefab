@@ -172,7 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 47242456740718973, guid: abcea698c951e4867912d7d206904d55, type: 3}
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 2748262492165750294, guid: ed4c34223ab8e456e9cb858e09f4d23c, type: 3}
+  spawnPoints: []
   attackPoint: {fileID: 8250621219957629841}
   attackInterval: 1
   timeBetweenShoots: 0.2
@@ -182,7 +183,7 @@ MonoBehaviour:
   patternChangeTimer: 0
   attackPointRotation: 1000
   bossHealth: {fileID: 0}
-  levelCompletedMessage: {fileID: 0}
+  victoryMessagePrefab: {fileID: 0}
 --- !u!114 &3877636552785667331
 MonoBehaviour:
   m_ObjectHideFlags: 0

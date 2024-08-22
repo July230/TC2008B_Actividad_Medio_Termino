@@ -12,6 +12,7 @@ public class Boss : MonoBehaviour
 {
     public GameObject projectilePrefab;
     public GameObject enemyPrefab;
+    public Transform[] spawnPoints; // Puntos donde aparecerán los enemigos
     public Transform attackPoint; // Puntos desde donde el jefe dispara
     public float attackInterval = 1.0f; // Tiempo entre cada serie de disparos
     public float timeBetweenShoots = 0.2f; // Tiempo entre disparos consecutivos
@@ -28,6 +29,7 @@ public class Boss : MonoBehaviour
     public float attackPointRotation = 1000.0f; // Velocidad de rotacion para los puntos de disparos
 
     public Health bossHealth;
+    public GameObject victoryMessagePrefab; // Prefab del mensaje de victoria
 
     /// <summary>
     /// Start is llamado antes de la primera actualizacion del frame
@@ -73,7 +75,7 @@ public class Boss : MonoBehaviour
         // Si hay tiempo, agregar logica para mover al jefe
         // MoveBoss();
     }
-    
+
     /// <summary>
     /// ExecuteAttackPattern tiene la logica para determinar el patron de disparo
     /// Utilizamos IEnumerator para crear corrutinas y asi ejecutar codigo de forma asincrona
@@ -266,4 +268,16 @@ public class Boss : MonoBehaviour
             bossHealth.TakeDamage(damage);
         }
     }
+
+     /// <summary>
+    /// OnDestroy es llamado cuando el objeto es destruido
+    /// </summary>
+    private void OnDestroy()
+    {
+        if (victoryMessagePrefab != null)
+        {
+            Instantiate(victoryMessagePrefab, transform.position, Quaternion.identity);
+        }
+    }
+
 }
