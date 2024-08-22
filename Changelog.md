@@ -29,6 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se agrego vida a jugador y jefe (21/08/2024)
 - Se agrego script Health a los objetos (21/08/2024)
 - Se agrego informacion adicional en el UI (21/08/2024)
+- Se agrego modelo para enemigo (21/08/2024)
+- Se agrego script para enemigo (21/08/2024)
 
 ### Changed
 

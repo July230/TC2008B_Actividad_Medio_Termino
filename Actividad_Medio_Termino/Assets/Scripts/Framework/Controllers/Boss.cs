@@ -44,6 +44,8 @@ public class Boss : MonoBehaviour
         // Iniciar la posicion del punto de ataque
         initialPositions = new Vector3[1];
         initialPositions[0] = attackPoint.position - transform.position;
+
+        transform.position = new Vector3(0, 30, 0);
     }
 
     /// <summary>
@@ -110,9 +112,8 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(patternPause);
 
         // Cambiar al siguiente patron
-        //int numberOfPatterns = 5;
-        //currentPattern = Random.Range(0, numberOfPatterns);
-        currentPattern = 4;
+        int numberOfPatterns = 5;
+        currentPattern = Random.Range(0, numberOfPatterns);
     }
 
     /// <summary>
