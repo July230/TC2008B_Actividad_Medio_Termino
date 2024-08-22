@@ -11,6 +11,7 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     public GameObject projectilePrefab;
+    public GameObject enemyPrefab;
     public Transform attackPoint; // Puntos desde donde el jefe dispara
     public float attackInterval = 1.0f; // Tiempo entre cada serie de disparos
     public float timeBetweenShoots = 0.2f; // Tiempo entre disparos consecutivos
@@ -72,7 +73,7 @@ public class Boss : MonoBehaviour
         // Si hay tiempo, agregar logica para mover al jefe
         // MoveBoss();
     }
-
+    
     /// <summary>
     /// ExecuteAttackPattern tiene la logica para determinar el patron de disparo
     /// Utilizamos IEnumerator para crear corrutinas y asi ejecutar codigo de forma asincrona

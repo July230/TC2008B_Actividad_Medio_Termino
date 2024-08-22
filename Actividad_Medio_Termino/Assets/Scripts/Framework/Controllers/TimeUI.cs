@@ -23,10 +23,7 @@ public class TimeUI : MonoBehaviour
     void Start()
     {
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
-        bossHealth = GameObject.FindGameObjectWithTag("Boss").GetComponent<Health>();
 
-        Debug.Log($"Jugador {playerHealth}");
-        Debug.Log($"Jefe {bossHealth}");
         UpdateInfoText();
     }
 
@@ -35,6 +32,16 @@ public class TimeUI : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // Buscar al jefe en cada frame y actualizar referencia de ser necesario
+        if(bossHealth == null)
+        {
+            GameObject boss = GameObject.FindGameObjectWithTag("Boss");
+            if(boss != null)
+            {
+                bossHealth = boss.GetComponent<Health>();
+            }
+        }
+
         // Actualizar el contador de proyectiles basado en la cantidad en escena
         projectileCount = FindObjectsOfType<Laser>().Length + FindObjectsOfType<Missile>().Length + FindObjectsOfType<BossProjectile>().Length;
 

@@ -11,6 +11,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject bossPrefab;
     public Transform[] spawnPoints; // Puntos de aparicion de los enemigos
 
     private List<GameObject> activeEnemies = new List<GameObject>();
@@ -20,25 +21,35 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     public void StartRound(int roundNumber)
     {
-        int enemiesPerRound = roundNumber * 4; 
-        StartCoroutine(SpawnEnemies(enemiesPerRound));
+        // En la tercera ronda, aparece el jefe
+        int enemiesPerRound = (roundNumber == 3) ? 1 : roundNumber * 3;
+        StartCoroutine(SpawnEnemies(enemiesPerRound, roundNumber));
     }
 
     /// <summary>
     /// SpawnEnemies es la corrutina encargada de aparecer a los enemigos
     /// </summary>
-    private IEnumerator SpawnEnemies(int numberOfEnemies)
+    private IEnumerator SpawnEnemies(int numberOfEnemies, int roundNumber)
     {
         for (int i = 0; i < numberOfEnemies; i++)
         {
             if (enemyPrefab != null && spawnPoints.Length > 0)
             {
                 Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-                GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                GameObject enemy;
 
-                // Asignar la etiqueta
-                enemy.tag = "Enemy";
+                if (roundNumber == 3 && i == 0) // Si es la tercera ronda, solo el jefe aparece
+                {
+                    enemy = Instantiate(bossPrefab, new Vector3(0, 30, 0), Quaternion.Euler(0, 180, 0));
+                    enemy.tag = "Boss";
+                }
+                else
+                {
+                    enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.Euler(0, 180, 0));
+                    enemy.tag = "Enemy";
+                }
                 
+
                 activeEnemies.Add(enemy);
                 yield return new WaitForSeconds(0.5f);
             }

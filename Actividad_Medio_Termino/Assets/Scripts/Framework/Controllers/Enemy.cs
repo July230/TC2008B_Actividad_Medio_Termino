@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// La clase enemy actualiza los eventos de los enemigos.
@@ -13,18 +14,13 @@ public class Enemy : MonoBehaviour
     public float speed = 100.0f;
     public GameObject projectilePrefab;
     public Transform attackPoint;
-    public int health = 30;
-    public int currentHealth; 
-    public float shootInterval = 1.5f;
+    public float shootInterval = 5.0f;
     public float nextShootTime = 0f;
     private float timeBetweenShoots = 0.2f;
     private int currentPattern = 0;
     private float patternPause = 2.0f;
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-    private Camera mainCamera;
-    private float cameraWidth;
-    private bool movingRight = true;
+    private bool isShootingPatternActive;
+    private Health health;
 
 
     /// <summary>
@@ -32,10 +28,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     void Start()
     {
-        currentHealth = health;
-        mainCamera = Camera.main;
-        CalculateLimit();
-        StartCoroutine(MovePattern());
+        health = GetComponent<Health>();
         StartCoroutine(ShottingPattern());
     }
 
@@ -44,33 +37,10 @@ public class Enemy : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if(Time.time >= nextShootTime)
+        if(Time.time >= nextShootTime && !isShootingPatternActive)
         {
             StartCoroutine(ShottingPattern());
             nextShootTime = Time.time + shootInterval;
-        }
-    }
-
-    /// <summary>
-    /// MovePattern es una corrutina que se encarga del movimiento del enemigo
-    /// </summary>
-    private IEnumerator MovePattern()
-    {
-        while (true)
-        {
-            // Mover al enemigo a lo largo del eje x
-            transform.Translate(Vector3.right * speed * Time.deltaTime * (movingRight ? 1 : -1));
-
-            // Comprobar si ha llegado al límite
-            if(movingRight && transform.position.x >= endPosition.x)
-            {
-                movingRight = false; // Cambiar direccion hacia la izquierda
-            }
-            else if (movingRight && transform.position.x <= startPosition.x)
-            {
-                movingRight = true; // Cambiar direccion hacia la derecha
-            }
-            yield return null; // Esperar al proximo frame
         }
     }
 
@@ -90,6 +60,7 @@ public class Enemy : MonoBehaviour
                 break;
         }
         yield return StartCoroutine(ChangeAttackPattern());
+        isShootingPatternActive = false;
     }
 
     /// <summary>
@@ -155,38 +126,14 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(shootInterval);
     }
 
-     /// <summary>
-    /// CalculateLimit obtiene los limites de la camara
-    /// </summary>
-    private void CalculateLimit()
-    {
-        // Obtener el tamaño de la camara en el mundo
-        float cameraHeight = 2f * mainCamera.orthographicSize;
-        cameraWidth = cameraHeight * mainCamera.aspect;
-
-        // Definir los limites en base a la camara
-        startPosition = new Vector3(-cameraWidth / 2, transform.position.y, transform.position.z);
-        endPosition = new Vector3(cameraWidth / 2, transform.position.y, transform.position.z);
-    }
-
     /// <summary>
-    /// ReceiveDamage es llamado cada vez que el jefe es impactado por un proyectil
+    /// OnCollisionEnter es llamado cada vez que el enemigo es impactado por un proyectil
     /// </summary>
     private void ReceiveDamage(int damage)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (health != null)
         {
-            Die();
+            health.TakeDamage(damage);
         }
-    }
-
-    /// <summary>
-    /// Die es llamado cuando el objeto llega a 0 de HP
-    /// </summary>
-    private void Die()
-    {
-        Debug.Log($"Enemigo {gameObject} destruido");
-        Destroy(gameObject);
     }
 }

@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
+    public GameObject explosionEffectPrefab;
 
     /// <summary>
     /// Start configura la vida maxima de los objetos
@@ -26,13 +27,11 @@ public class Health : MonoBehaviour
         {
             maxHealth = 1000;
         }
+        else if(gameObject.CompareTag("Enemy"))
+        {
+            maxHealth = 30;
+        }
         currentHealth = maxHealth;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /// <summary>
@@ -55,6 +54,11 @@ public class Health : MonoBehaviour
     public void Die()
     {
         Debug.Log($"{gameObject.tag} ha muerto");
+        // Instanciar el efecto de explosión
+        if (explosionEffectPrefab != null)
+        {
+            Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 }

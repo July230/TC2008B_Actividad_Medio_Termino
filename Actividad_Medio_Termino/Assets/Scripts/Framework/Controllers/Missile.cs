@@ -72,6 +72,7 @@ public class Missile : MonoBehaviour
                 enemyHealth.TakeDamage(10);
             }
         }
+        // Debug.Log("Proyectil impactó en el objetivo: " + other.gameObject.name);
         // Destruir proyectil al colisionar
         Destroy(gameObject);
     }
