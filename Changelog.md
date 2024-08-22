@@ -36,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se implementa aparicion dinamica de enemigos (21/08/2024)
 - Se implementa aparicion dinamica de jefe (21/08/2024)
 - Se implementan rondas (21/08/2024)
+- Se agregaron particulas para imitar humo (21/08/2024)
+- Se implementaron invocaciones de enemigos a partir de la vida del jefe (21/08/2024)
 
 ### Changed
 

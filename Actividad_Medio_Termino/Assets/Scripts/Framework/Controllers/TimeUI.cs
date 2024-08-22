@@ -23,7 +23,6 @@ public class TimeUI : MonoBehaviour
     void Start()
     {
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
-
         UpdateInfoText();
     }
 
@@ -32,6 +31,7 @@ public class TimeUI : MonoBehaviour
     /// </summary>
     void Update()
     {
+        Debug.Log($"UpdateInfoText: nextMissileTime = {nextMissileTime}");
         // Buscar al jefe en cada frame y actualizar referencia de ser necesario
         if(bossHealth == null)
         {

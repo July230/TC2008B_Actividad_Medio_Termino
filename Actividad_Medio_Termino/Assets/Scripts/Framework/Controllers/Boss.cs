@@ -16,7 +16,9 @@ public class Boss : MonoBehaviour
     public Transform attackPoint; // Puntos desde donde el jefe dispara
     public float attackInterval = 1.0f; // Tiempo entre cada serie de disparos
     public float timeBetweenShoots = 0.2f; // Tiempo entre disparos consecutivos
-    public float moveSpeed = 1.0f; // Velocidad de movimiento del jefe
+    public float moveSpeed = 50.0f; // Velocidad de movimiento del jefe
+    public float moveTimer = 10.0f;
+    public float moveTime = 0.0f;
 
     private int currentPattern = 0; // Patron del ataque actual
     private float attackTimer;
@@ -72,8 +74,6 @@ public class Boss : MonoBehaviour
             patternChangeTimer = patternChangeInterval;
         }
 
-        // Si hay tiempo, agregar logica para mover al jefe
-        // MoveBoss();
     }
 
     /// <summary>
@@ -248,14 +248,6 @@ public class Boss : MonoBehaviour
         }
 
         yield return new WaitForSeconds(attackInterval); // Tiempo entre disparos
-    }
-
-    /// <summary>
-    /// MoveBoss tiene la logica del movimiento del jefe
-    /// </summary>
-    private void MoveBoss()
-    {
-        // Si hay tiempo, implementar logica para que jefe se mueva
     }
 
     /// <summary>

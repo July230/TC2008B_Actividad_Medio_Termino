@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     public Transform missileShootingPoint; // Punto desde donde se dispara el misil
 
     public float shootInterval = 0.25f; // Intervalo entre disparos
-    public float missileCoolDown = 15f; // Quince segundos de recuperacion
+    public float missileCoolDown = 15.0f; // Quince segundos de recuperacion
     public float nextShootTime = 0f;
     public float nextMissileTime = 0f;
 
