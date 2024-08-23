@@ -24,6 +24,7 @@ public class TimeUI : MonoBehaviour
     void Start()
     {
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        nextMissileTime = Time.time;
         UpdateInfoText();
     }
 
@@ -49,7 +50,11 @@ public class TimeUI : MonoBehaviour
         // Si el jefe ha sido destruido, ocultar el texto de su salud
         if(bossHealth.currentHealth <= 0)
         {
-            bossHealthText.gameObject.SetActive(false);
+            if (bossHealthText != null)
+            {
+                bossHealthText.gameObject.SetActive(false);
+            }
+            bossHealth = null; // Desreferenciar el jefe si ha sido destruido
         }
 
         // Actualiza la informacion mostrada
